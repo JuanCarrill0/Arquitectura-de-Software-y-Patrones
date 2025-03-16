@@ -1,1 +1,1 @@
-# Dise-o-Arquitectural-de-Software-y-Patrones
+Arquitectura-de-Software-y-Patrones
