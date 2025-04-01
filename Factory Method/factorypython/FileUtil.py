@@ -12,6 +12,7 @@ class FileUtil:
             f.close()
         except IOError:
             print("Error to read the file")
+            
     def readFromFile(self, fileName):
         dataLine=""
         try:
