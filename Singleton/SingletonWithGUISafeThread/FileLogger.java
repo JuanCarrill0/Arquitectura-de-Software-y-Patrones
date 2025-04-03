@@ -1,5 +1,3 @@
-package com.example;
-
 public class FileLogger implements Logger {
 
   private static FileLogger logger;
