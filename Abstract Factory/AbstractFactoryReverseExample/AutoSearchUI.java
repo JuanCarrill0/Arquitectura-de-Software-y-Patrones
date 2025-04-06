@@ -170,8 +170,7 @@ class ButtonHandler implements ActionListener {
       if (vhCategory.equals(AutoSearchUI.LUXURY)) {
         Luxury c = vf.getLuxury();
         searchResult =
-          "Name: " + c.getLuxuryName() + "  Features: " +
-          c.getLuxuryFeatures();
+          "Name: " + c.getLuxuryName() + "  Features: " + c.getLuxuryFeatures();
       }
       if (vhCategory.equals(AutoSearchUI.NON_LUXURY)) {
         NonLuxury s = vf.getNonLuxury();
