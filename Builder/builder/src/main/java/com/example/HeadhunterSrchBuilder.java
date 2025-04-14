@@ -87,12 +87,13 @@ class HeadhunterSrchBuilder extends UIBuilder {
     }
 
     public String getSQL() {
-        return ("INSERT INTO HeadhunterEnterprise (EnterpriseName, Address, EIN, Email, WebsiteURL, Phone) " +
-                "VALUES ('" + txtEnterpriseName.getText() + "', " +
-                "'" + txtAddress.getText() + "', " +
-                "'" + txtEIN.getText() + "', " +
-                "'" + txtEmail.getText() + "', " +
-                "'" + txtURL.getText() + "', " +
-                "'" + txtPhone.getText() + "')");
+        return ("SELECT EnterpriseName, Address, EIN, Email, WebsiteURL, Phone " +
+                "FROM HeadhunterEnterprise " +
+                "WHERE EnterpriseName = '" + txtEnterpriseName.getText() + "' " +
+                "AND Address = '" + txtAddress.getText() + "' " +
+                "AND EIN = '" + txtEIN.getText() + "' " +
+                "AND Email = '" + txtEmail.getText() + "' " +
+                "AND WebsiteURL = '" + txtURL.getText() + "' " +
+                "AND Phone = '" + txtPhone.getText() + "'");
     }
 }
