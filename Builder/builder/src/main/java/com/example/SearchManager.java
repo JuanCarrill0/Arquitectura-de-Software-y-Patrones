@@ -13,6 +13,7 @@ public class SearchManager extends JFrame {
     "Candidate SQL Statement";
 
   public static final String EMPLOYER_SRCH = "Employer SQL Statement";
+  public static final String HEADHUNTER_SRCH = "Headhunter Enterprise SQL Statement"; // Nueva constante
 
   public static final String BLANK = "";
 
@@ -37,6 +38,7 @@ public class SearchManager extends JFrame {
     cmbSearchType.addItem(SearchManager.BLANK);
     cmbSearchType.addItem(SearchManager.CANDIDATE_SRCH);
     cmbSearchType.addItem(SearchManager.EMPLOYER_SRCH);
+    cmbSearchType.addItem(SearchManager.HEADHUNTER_SRCH); // Nueva opción
 
     //Create Labels
     JLabel lblSearchType = new JLabel("Statement type:");
@@ -227,14 +229,17 @@ class ButtonHandler implements ActionListener {
   }
 
 }
+
 class BuilderFactory {
   public UIBuilder getUIBuilder(String str) {
-    UIBuilder builder = null;
-    if (str.equals(SearchManager.CANDIDATE_SRCH)) {
-      builder = new CandSrchBuilder();
-    } else if (str.equals(SearchManager.EMPLOYER_SRCH)) {
-      builder = new EmpSrchBuilder();
-    }
-    return builder;
+      UIBuilder builder = null;
+      if (str.equals(SearchManager.CANDIDATE_SRCH)) {
+          builder = new CandSrchBuilder();
+      } else if (str.equals(SearchManager.EMPLOYER_SRCH)) {
+          builder = new EmpSrchBuilder();
+      } else if (str.equals(SearchManager.HEADHUNTER_SRCH)) {
+          builder = new HeadhunterSrchBuilder();
+      }
+      return builder;
   }
 }
