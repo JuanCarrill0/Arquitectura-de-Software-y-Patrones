@@ -70,12 +70,15 @@ class ButtonHandler():
       self.__root.destroy()
 #End of class
 
-if __name__=="__main__":
+def main():
     root = Tk()
     root.withdraw()
     root.title("Factory Method Pattern - Example")
     app = ButtonHandler(root)
     root.mainloop()
+    
+if __name__=="__main__":
+    main()
 
 
 
