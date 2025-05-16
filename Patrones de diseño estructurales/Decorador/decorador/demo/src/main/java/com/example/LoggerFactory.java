@@ -5,13 +5,11 @@ import java.io.*;
 
 public class LoggerFactory {
 
-  /*public boolean isFileLoggingEnabled() {
+  public boolean isFileLoggingEnabled() {
     Properties p = new Properties();
     try {
-      p.load(ClassLoader.getSystemResourceAsStream(
-        "Logger.properties"));
-      String fileLoggingValue =
-        p.getProperty("FileLogging");
+      p.load(ClassLoader.getSystemResourceAsStream("com/example/Logger.properties"));
+      String fileLoggingValue = p.getProperty("FileLogging");
       if (fileLoggingValue.equalsIgnoreCase("ON") == true)
         return true;
       else
@@ -19,10 +17,10 @@ public class LoggerFactory {
     } catch (IOException e) {
       return false;
     }
-  }*/
+  }
 // El método isFileLoggingEnabled() verifica si el registro de archivos está habilitado
 
-  public boolean isFileLoggingEnabled() {
+  /*public boolean isFileLoggingEnabled() {
     Properties p = new Properties();
     try (InputStream input = ClassLoader.getSystemResourceAsStream("com/example/Logger.properties")) {
         if (input == null) {
@@ -36,7 +34,9 @@ public class LoggerFactory {
     } catch (IOException e) {
         return false;
     }
+
 }
+    */
 
   public Logger getLogger() {
     if (isFileLoggingEnabled()) {

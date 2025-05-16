@@ -20,11 +20,9 @@ public class FileUtil {
     try {
       File outFile = new File(fileName);
       if (isAppendMode) {
-        dos = new DataOutputStream(
-                new FileOutputStream(fileName, true));
+        dos = new DataOutputStream(new FileOutputStream(fileName, true));
       } else {
-        dos = new DataOutputStream(
-                new FileOutputStream(outFile));
+        dos = new DataOutputStream(new FileOutputStream(outFile));
       }
 
       dos.writeBytes(dataLine);
