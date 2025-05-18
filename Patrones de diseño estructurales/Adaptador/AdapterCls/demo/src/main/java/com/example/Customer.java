@@ -3,8 +3,6 @@ import java.io.*;
 import java.util.*;
 
 import com.example.AddressValidator;
-import com.example.CAAddressAdapter;
-import com.example.USAddress;
 
 class Customer {
   public static final String US = "US";
