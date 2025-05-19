@@ -18,8 +18,7 @@ class Customer {
     }
     if (type.equals(Customer.CANADA)) {
       CAAddress objCAAddress = new CAAddress();
-      CAAddressAdapter adapter =
-        new CAAddressAdapter(objCAAddress);
+      CAAddressAdapter adapter = new CAAddressAdapter(objCAAddress);
       return adapter.isValidAddress(address, zip, state);
     }
     return true;

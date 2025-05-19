@@ -202,18 +202,14 @@ class ButtonHandler implements ActionListener {
       System.exit(1);
     }
     if (e.getActionCommand().equals(AddressManager.VALIDATE)) {
-      String custName =
-        objAddressManager.getCustomerName();
+      String custName =objAddressManager.getCustomerName();
       String address = objAddressManager.getAddress();
       String zip = objAddressManager.getZip();
       String state = objAddressManager.getAddrState();
-      String addressType =
-        objAddressManager.getAddressType();
+      String addressType = objAddressManager.getAddressType();
 
       //Create a customer object
-      Customer objCustomer =
-        new Customer(custName, address, zip, state,
-                     addressType);
+      Customer objCustomer = new Customer(custName, address, zip, state,addressType);
 
       //Check if the address is valid
       if (objCustomer.isValidCustomerAddress()) {
