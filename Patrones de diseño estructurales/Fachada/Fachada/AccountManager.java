@@ -245,8 +245,7 @@ class ButtonHandler implements ActionListener {
     if (e.getActionCommand().equals(AccountManager.EXIT)) {
       System.exit(1);
     }
-    if (e.getActionCommand().equals(
-          AccountManager.VALIDATE_SAVE)) {
+    if (e.getActionCommand().equals(AccountManager.VALIDATE_SAVE)) {
       //get input values
       String firstName = objAccountManager.getFirstName();
       String lastName = objAccountManager.getLastName();

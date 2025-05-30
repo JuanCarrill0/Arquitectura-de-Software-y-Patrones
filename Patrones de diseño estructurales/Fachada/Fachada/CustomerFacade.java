@@ -60,8 +60,7 @@ public class CustomerFacade {
       errorMessage = "Invalid Address/City/State";
     }
 
-    objCreditCard = new CreditCard(cardType, cardNumber,
-                    cardExpDate);
+    objCreditCard = new CreditCard(cardType, cardNumber, cardExpDate);
     if (objCreditCard.isValid() == false) {
       validData = false;
       errorMessage = "Invalid CreditCard Info";
