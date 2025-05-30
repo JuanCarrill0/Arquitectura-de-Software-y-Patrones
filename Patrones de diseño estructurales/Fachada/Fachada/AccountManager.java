@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
-import com.sun.java.swing.plaf.windows.*;
 
 public class AccountManager extends JFrame {
   public static final String newline = "\n";
@@ -184,7 +183,7 @@ public class AccountManager extends JFrame {
 
     contentPane.add(buttonPanel, BorderLayout.CENTER);
     try {
-      UIManager.setLookAndFeel(new WindowsLookAndFeel());
+      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       SwingUtilities.updateComponentTreeUI(
         AccountManager.this);
     } catch (Exception ex) {
