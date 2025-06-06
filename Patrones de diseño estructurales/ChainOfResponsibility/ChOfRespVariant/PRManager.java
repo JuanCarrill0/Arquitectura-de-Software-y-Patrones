@@ -12,8 +12,7 @@ public class PRManager {
       new PurchaseRequest(1, "Office Supplies",10000);
     manager.branchManager.authorize(request);
 //Seconf purchase request
-    request = new PurchaseRequest(2, "HardWare Procurement",
-              750000);
+    request = new PurchaseRequest(2, "HardWare Procurement",750000);
     manager.branchManager.authorize(request);
 //Third purchase request    
     request = new PurchaseRequest(3, "Aggressive AD Campaign ",8000000);

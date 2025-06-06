@@ -32,11 +32,8 @@ public class CreditCard {
   }
   public boolean save() {
     FileUtil futil = new FileUtil();
-    String dataLine =
-      getCardType() + "," + getCardNumber() + "," +
-      getCardExpDate();
-    return futil.writeToFile(CC_DATA_FILE, dataLine, true,
-           true);
+    String dataLine = getCardType() + "," + getCardNumber() + "," + getCardExpDate();
+    return futil.writeToFile(CC_DATA_FILE, dataLine, true, true);
   }
   public String getCardType() {
     return cardType;

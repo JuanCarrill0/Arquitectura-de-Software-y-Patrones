@@ -22,8 +22,7 @@ public class Account {
   public boolean save() {
     FileUtil futil = new FileUtil();
     String dataLine = getLastName() + "," + getFirstName();
-    return futil.writeToFile(ACCOUNT_DATA_FILE, dataLine,
-           true, true);
+    return futil.writeToFile(ACCOUNT_DATA_FILE, dataLine, true, true);
 
   }
   public String getFirstName() {

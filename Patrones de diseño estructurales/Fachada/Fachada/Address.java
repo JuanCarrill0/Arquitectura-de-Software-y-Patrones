@@ -26,10 +26,8 @@ public class Address {
   }
   public boolean save() {
     FileUtil futil = new FileUtil();
-    String dataLine = getAddress() + "," + getCity() + "," +
-                      getState();
-    return futil.writeToFile(ADDRESS_DATA_FILE, dataLine,
-           true, true);
+    String dataLine = getAddress() + "," + getCity() + "," + getState();
+    return futil.writeToFile(ADDRESS_DATA_FILE, dataLine, true, true);
   }
   public String getAddress() {
     return address;
