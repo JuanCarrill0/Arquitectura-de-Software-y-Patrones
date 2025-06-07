@@ -71,17 +71,11 @@ public class OrderManager extends JFrame {
     private void updateUI() {
         String selected = (String) cmbOrderType.getSelectedItem();
         UIBuilder builder;
-        switch (selected) {
-            case CA_ORDER:
-                builder = new CaliforniaOrderUIBuilder();
-                break;
-            case OVERSEAS_ORDER:
-                builder = new OverseasOrderUIBuilder();
-                break;
-            default:
-                builder = new NonCaliforniaOrderUIBuilder();
-                break;
-        }
+        //Uso de fabrica
+        BuilderFactory factory = new BuilderFactory();
+        builder = factory.getUIBuilder(selected);
+
+        //Seleccion de builder
         director.setBuilder(builder);
         director.constructUI();
 
@@ -171,4 +165,18 @@ class ButtonHandler implements ActionListener {
         }
         return null;
     }
+}
+
+class BuilderFactory {
+  public UIBuilder getUIBuilder(String str) {
+      UIBuilder builder = null;
+      if (str.equals(OrderManager.CA_ORDER)) {
+          builder = new CaliforniaOrderUIBuilder();
+      } else if (str.equals(OrderManager.NON_CA_ORDER)) {
+          builder = new NonCaliforniaOrderUIBuilder();
+      } else if (str.equals(OrderManager.OVERSEAS_ORDER)) {
+          builder = new OverseasOrderUIBuilder();
+      }
+      return builder;
+  }
 }
