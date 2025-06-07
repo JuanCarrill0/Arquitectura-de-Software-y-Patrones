@@ -13,8 +13,7 @@ public class EncryptedMessage implements Message {
 
   }
   private String preProcess(String msg) {
-    msg = msg.substring(msg.length() - 1) +
-          msg.substring(0, msg.length() - 1);
+    msg = msg.substring(msg.length() - 1) +msg.substring(0, msg.length() - 1);
 
     return msg;
   };

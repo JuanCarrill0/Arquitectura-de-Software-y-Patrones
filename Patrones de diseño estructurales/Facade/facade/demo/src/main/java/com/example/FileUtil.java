@@ -9,8 +9,7 @@ public class FileUtil {
   /*
   	 Utility method to write a given text to a file
   */
-  public boolean writeToFile(String fileName, String dataLine,
-      boolean isAppendMode, boolean isNewLine) {
+  public boolean writeToFile(String fileName, String dataLine, boolean isAppendMode, boolean isNewLine) {
     if (isNewLine) {
       dataLine = "\n" + dataLine;
     }
@@ -18,11 +17,9 @@ public class FileUtil {
     try {
       File outFile = new File(fileName);
       if (isAppendMode) {
-        dos = new DataOutputStream(
-                new FileOutputStream(fileName, true));
+        dos = new DataOutputStream(new FileOutputStream(fileName, true));
       } else {
-        dos = new DataOutputStream(
-                new FileOutputStream(outFile));
+        dos = new DataOutputStream(new FileOutputStream(outFile));
       }
 
       dos.writeBytes(dataLine);
