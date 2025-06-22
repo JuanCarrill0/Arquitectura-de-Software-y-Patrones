@@ -150,7 +150,8 @@ class ButtonHandler implements ActionListener {
                 order.accept(objOrderManager.objVisitor);
             }
         } else if (command.equals(OrderManager.GET_TOTAL)) {
-            double total = objOrderManager.objVisitor.getOrderTotal();
+            OrderIterator iterator = objOrderManager.objVisitor.getIterator();
+            double total = getOrderTotal(iterator);
             JOptionPane.showMessageDialog(objOrderManager, "Total: " + total);
         }
     }
@@ -164,6 +165,27 @@ class ButtonHandler implements ActionListener {
             return new OverseasOrder(orderAmount, SH);
         }
         return null;
+    }
+
+    private double getOrderTotal(OrderIterator orders){
+        double total = 0.0;
+        orders.reset();
+        while (orders.hasNext()) {
+            Order o = orders.next();
+
+            if (o instanceof CaliforniaOrder) {
+                CaliforniaOrder co = (CaliforniaOrder) o;
+                total += co.getOrderAmount() + co.getAdditionalTax();
+            } else if (o instanceof OverseasOrder) {
+                OverseasOrder oo = (OverseasOrder) o;
+                total += oo.getOrderAmount() + oo.getAdditionalSH();
+            } else if (o instanceof NonCaliforniaOrder) {
+                NonCaliforniaOrder nco = (NonCaliforniaOrder) o;
+                total += nco.getOrderAmount();
+            }
+        }
+
+        return total;
     }
 }
 

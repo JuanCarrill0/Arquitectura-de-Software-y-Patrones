@@ -3,24 +3,24 @@ package com.example;
 import java.util.*;
 
 class OrderVisitor implements VisitorInterface {
-  private Vector orderObjList;
-  private double orderTotal;
+  private List<Order> orderObjList;
+  private OrderIterator iterator;
 
   public OrderVisitor() {
-    orderObjList = new Vector();
+    orderObjList = new ArrayList<Order>();
+    iterator = new OrderIterator(orderObjList);
   }
   public void visit(NonCaliforniaOrder inp_order) {
-    orderTotal = orderTotal + inp_order.getOrderAmount();
+    orderObjList.add(inp_order);
   }
   public void visit(CaliforniaOrder inp_order) {
-    orderTotal = orderTotal + inp_order.getOrderAmount() +
-                 inp_order.getAdditionalTax();
+    orderObjList.add(inp_order);
   }
   public void visit(OverseasOrder inp_order) {
-    orderTotal = orderTotal + inp_order.getOrderAmount() +
-                 inp_order.getAdditionalSH();
+    orderObjList.add(inp_order);
   }
-  public double getOrderTotal() {
-    return orderTotal;
+  
+  public OrderIterator getIterator(){
+    return iterator;
   }
 }
