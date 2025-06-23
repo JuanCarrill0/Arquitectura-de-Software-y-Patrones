@@ -75,7 +75,7 @@ public class OrderManager extends JFrame {
         });
 
         // Action listeners para los botones
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(new ButtonHandler(this));
         createOrderButton.addActionListener(new ButtonHandler(this));
         getTotalButton.addActionListener(new ButtonHandler(this));
         deleteButton.addActionListener(new ButtonHandler(this));
@@ -83,18 +83,7 @@ public class OrderManager extends JFrame {
         //Listener a la lista de órdenes
         orderList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                //System.out.println("Selected Order: " + orderList.getSelectedValue());
-                int selectedIndex = orderList.getSelectedIndex();
-                if (selectedIndex >= 0) {
-                    Order selectedOrder = objVisitor.getIterator().getOrders().get(selectedIndex);
-                    if (selectedOrder instanceof CaliforniaOrder) {
-                        cmbOrderType.setSelectedItem(CA_ORDER);
-                    } else if (selectedOrder instanceof NonCaliforniaOrder) {
-                        cmbOrderType.setSelectedItem(NON_CA_ORDER);
-                    } else if (selectedOrder instanceof OverseasOrder) {
-                        cmbOrderType.setSelectedItem(OVERSEAS_ORDER);
-                    }
-                }
+                updateOrderTypeComboFromSelection();
             }
         });
         
@@ -104,10 +93,9 @@ public class OrderManager extends JFrame {
 
     private void updateUI() {
         String selected = (String) cmbOrderType.getSelectedItem();
-        UIBuilder builder;
         //Uso de fabrica
         BuilderFactory factory = new BuilderFactory();
-        builder = factory.getUIBuilder(selected);
+        UIBuilder builder = factory.getUIBuilder(selected);
 
         //Seleccion de builder
         director.setBuilder(builder);
@@ -118,6 +106,21 @@ public class OrderManager extends JFrame {
         dynamicPanel.add(director.getPanel());
         dynamicPanel.revalidate();
         dynamicPanel.repaint();
+    }
+
+    // Actualizar el JComboBox según la selección de la lista de órdenes
+    public void updateOrderTypeComboFromSelection() {
+        int selectedIndex = orderList.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            Order selectedOrder = objVisitor.getIterator().getOrders().get(selectedIndex);
+            if (selectedOrder instanceof CaliforniaOrder) {
+                cmbOrderType.setSelectedItem(CA_ORDER);
+            } else if (selectedOrder instanceof NonCaliforniaOrder) {
+                cmbOrderType.setSelectedItem(NON_CA_ORDER);
+            } else if (selectedOrder instanceof OverseasOrder) {
+                cmbOrderType.setSelectedItem(OVERSEAS_ORDER);
+            }
+        }
     }
 
     // Actualizar la lista de órdenes
