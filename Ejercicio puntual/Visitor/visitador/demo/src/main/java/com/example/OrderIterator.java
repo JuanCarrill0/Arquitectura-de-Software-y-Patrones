@@ -47,9 +47,19 @@ public class OrderIterator implements Iterator<Order>{
         lastReturned = null;
     }
 
+    public void removeAt(int index) {
+        if (index >= 0 && index < orders.size()) {
+            orders.remove(index);
+        }
+    }
+
     public void reset() {
         this.it = orders.iterator();
         this.nextOrder = null;
         this.lastReturned = null;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 }

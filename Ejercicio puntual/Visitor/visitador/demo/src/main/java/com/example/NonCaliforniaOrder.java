@@ -11,7 +11,17 @@ public class NonCaliforniaOrder implements Order {
   public double getOrderAmount() {
     return orderAmount;
   }
+
+  public void setOrderAmount(double orderAmount) {
+    this.orderAmount = orderAmount;
+  }
+
   public void accept(OrderVisitor v) {
     v.visit(this);
+  }
+
+  @Override
+  public String toString() {
+    return "NonCaliforniaOrder{" +"orderAmount=" + orderAmount +'}';
   }
 }
