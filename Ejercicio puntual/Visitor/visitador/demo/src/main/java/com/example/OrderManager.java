@@ -232,8 +232,7 @@ class ButtonHandler implements ActionListener {
             }
         }
         if (e.getActionCommand().equals(OrderManager.GET_TOTAL)) {
-            OrderIterator iterator = objOrderManager.getVisitor().getIterator();
-            double total = getOrderTotal(iterator);
+            double total = getOrderTotal(objOrderManager.getVisitor().getIterator());
             JOptionPane.showMessageDialog(objOrderManager, "Total: " + total);
         }
         if (e.getActionCommand().equals(OrderManager.DELETE)) {
