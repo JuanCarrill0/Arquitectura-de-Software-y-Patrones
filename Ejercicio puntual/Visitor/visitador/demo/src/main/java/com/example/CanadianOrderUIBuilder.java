@@ -6,11 +6,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-class NonCaliforniaOrderUIBuilder implements UIBuilder {
+public class CanadianOrderUIBuilder implements UIBuilder{
     private JPanel panel;
     private JTextField txtOrderAmount;
 
-    public NonCaliforniaOrderUIBuilder() {
+    public CanadianOrderUIBuilder() {
         panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
     }

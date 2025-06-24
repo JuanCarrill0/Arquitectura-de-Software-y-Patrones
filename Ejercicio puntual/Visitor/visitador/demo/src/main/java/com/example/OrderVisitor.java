@@ -19,6 +19,9 @@ class OrderVisitor implements VisitorInterface {
   public void visit(OverseasOrder inp_order) {
     orderObjList.add(inp_order);
   }
+  public void visit(CanadianOrder inp_order){
+    orderObjList.add(inp_order);
+  }
   
   public OrderIterator getIterator(){
     return iterator;

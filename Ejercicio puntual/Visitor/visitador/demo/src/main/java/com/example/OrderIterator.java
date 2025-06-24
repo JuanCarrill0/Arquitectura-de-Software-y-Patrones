@@ -2,13 +2,11 @@ package com.example;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class OrderIterator implements Iterator<Order>{
     
     private List<Order> orders;
     private Iterator<Order> it;
-    private Order nextOrder;
     private Order lastReturned;
 
 
@@ -17,49 +15,27 @@ public class OrderIterator implements Iterator<Order>{
         it = this.orders.iterator();
     }
 
-    public boolean hasNext(){
-        nextOrder = null;
-
-        while (it.hasNext()) {
-            Order temp = it.next();
-            nextOrder = temp;
-            break;
-        }
-
-        return nextOrder != null;
+    public boolean hasNext() {
+        return it.hasNext();
     }
 
-    public Order next(){
-        if (nextOrder == null) {
-            throw new NoSuchElementException();
-        }
-        lastReturned = nextOrder;
-        nextOrder = null;
+    @Override
+    public Order next() {
+        lastReturned = it.next();
         return lastReturned;
     }
 
-    public void remove(){
-         if (lastReturned == null) {
+    @Override
+    public void remove() {
+        if (lastReturned == null) {
             throw new IllegalStateException("next() must be called before remove()");
         }
-        orders.remove(lastReturned);
-        reset();
+        it.remove();
         lastReturned = null;
-    }
-
-    public void removeAt(int index) {
-        if (index >= 0 && index < orders.size()) {
-            orders.remove(index);
-        }
     }
 
     public void reset() {
         this.it = orders.iterator();
-        this.nextOrder = null;
         this.lastReturned = null;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
     }
 }

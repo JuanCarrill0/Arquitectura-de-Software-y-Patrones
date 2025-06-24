@@ -3,11 +3,6 @@ package com.example;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-
-import java.util.List;
-import java.util.ArrayList;
-
 
 public class OrderManager extends JFrame {
     public static final String GET_TOTAL = "Get Total";
@@ -17,13 +12,14 @@ public class OrderManager extends JFrame {
     public static final String CA_ORDER = "California Order";
     public static final String NON_CA_ORDER = "Non-California Order";
     public static final String OVERSEAS_ORDER = "Overseas Order";
+    public static final String CAN_ORDER = "Canadian Order";
 
     public JComboBox<String> cmbOrderType;
     private JPanel dynamicPanel;
     private UIDirector director;
     OrderVisitor objVisitor;
 
-    //Variables lista de ordenes
+    // Variables lista de ordenes
     private DefaultListModel<String> orderListModel;
     public JList<String> orderList;
 
@@ -36,7 +32,7 @@ public class OrderManager extends JFrame {
 
         // Panel superior con el JComboBox
         JPanel topPanel = new JPanel();
-        cmbOrderType = new JComboBox<>(new String[]{CA_ORDER, NON_CA_ORDER, OVERSEAS_ORDER});
+        cmbOrderType = new JComboBox<>(new String[] { CA_ORDER, NON_CA_ORDER, OVERSEAS_ORDER, CAN_ORDER });
         topPanel.add(new JLabel("Order Type:"));
         topPanel.add(cmbOrderType);
         add(topPanel, BorderLayout.NORTH);
@@ -57,7 +53,7 @@ public class OrderManager extends JFrame {
         buttonPanel.add(deleteButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        //Lista de ordenes
+        // Lista de ordenes
         orderListModel = new DefaultListModel<>();
         orderList = new JList<>(orderListModel);
         orderList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -73,31 +69,31 @@ public class OrderManager extends JFrame {
                 updateUI();
             }
         });
-
+        
         // Action listeners para los botones
         exitButton.addActionListener(new ButtonHandler(this));
         createOrderButton.addActionListener(new ButtonHandler(this));
         getTotalButton.addActionListener(new ButtonHandler(this));
         deleteButton.addActionListener(new ButtonHandler(this));
 
-        //Listener a la lista de órdenes
+        // Listener a la lista de órdenes
         orderList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 updateOrderTypeComboFromSelection();
             }
         });
-        
+
         // Inicializar la UI con el primer tipo de orden
         updateUI();
     }
 
     private void updateUI() {
         String selected = (String) cmbOrderType.getSelectedItem();
-        //Uso de fabrica
+        // Uso de fabrica
         BuilderFactory factory = new BuilderFactory();
         UIBuilder builder = factory.getUIBuilder(selected);
 
-        //Seleccion de builder
+        // Seleccion de builder
         director.setBuilder(builder);
         director.constructUI();
 
@@ -112,13 +108,27 @@ public class OrderManager extends JFrame {
     public void updateOrderTypeComboFromSelection() {
         int selectedIndex = orderList.getSelectedIndex();
         if (selectedIndex >= 0) {
-            Order selectedOrder = objVisitor.getIterator().getOrders().get(selectedIndex);
+
+            OrderIterator iterator = objVisitor.getIterator(); // debe ser nuevo o reseteado
+            int currentIndex = 0;
+            Order selectedOrder = null;
+            iterator.reset();
+            while (iterator.hasNext()) {
+                Order current = iterator.next();
+                if (currentIndex == selectedIndex) {
+                    selectedOrder = current;
+                    break;
+                }
+                currentIndex++;
+            }
             if (selectedOrder instanceof CaliforniaOrder) {
                 cmbOrderType.setSelectedItem(CA_ORDER);
             } else if (selectedOrder instanceof NonCaliforniaOrder) {
                 cmbOrderType.setSelectedItem(NON_CA_ORDER);
             } else if (selectedOrder instanceof OverseasOrder) {
                 cmbOrderType.setSelectedItem(OVERSEAS_ORDER);
+            } else if (selectedOrder instanceof CanadianOrder) {
+                cmbOrderType.setSelectedItem(CAN_ORDER);
             }
         }
     }
@@ -202,11 +212,21 @@ class ButtonHandler implements ActionListener {
             OrderIterator iterator = objOrderManager.objVisitor.getIterator();
             double total = getOrderTotal(iterator);
             JOptionPane.showMessageDialog(objOrderManager, "Total: " + total);
-        }else if( command.equals(OrderManager.DELETE)) {
+        } else if (command.equals(OrderManager.DELETE)) {
             int selectedIndex = objOrderManager.orderList.getSelectedIndex();
             if (selectedIndex != -1) {
                 OrderIterator iterator = objOrderManager.objVisitor.getIterator();
-                iterator.removeAt(selectedIndex);
+                iterator.reset();
+                int currentIndex = 0;
+                while (iterator.hasNext()) {
+                    iterator.next();
+                    if (currentIndex == selectedIndex) {
+                        iterator.remove();
+                        break;
+                    }
+                    currentIndex++;
+                }
+
                 objOrderManager.refreshOrderList();
             }
         }
@@ -219,11 +239,13 @@ class ButtonHandler implements ActionListener {
             return new NonCaliforniaOrder(orderAmount);
         } else if (orderType.equals(OrderManager.OVERSEAS_ORDER)) {
             return new OverseasOrder(orderAmount, SH);
+        } else if (orderType.equals(OrderManager.CAN_ORDER)) {
+            return new CanadianOrder(orderAmount);
         }
         return null;
     }
 
-    private double getOrderTotal(OrderIterator orders){
+    private double getOrderTotal(OrderIterator orders) {
         double total = 0.0;
         orders.reset();
         while (orders.hasNext()) {
@@ -238,6 +260,9 @@ class ButtonHandler implements ActionListener {
             } else if (o instanceof NonCaliforniaOrder) {
                 NonCaliforniaOrder nco = (NonCaliforniaOrder) o;
                 total += nco.getOrderAmount();
+            } else if (o instanceof CanadianOrder) {
+                CanadianOrder ca = (CanadianOrder) o;
+                total += ca.getOrderAmount();
             }
         }
 
@@ -246,15 +271,17 @@ class ButtonHandler implements ActionListener {
 }
 
 class BuilderFactory {
-  public UIBuilder getUIBuilder(String str) {
-      UIBuilder builder = null;
-      if (str.equals(OrderManager.CA_ORDER)) {
-          builder = new CaliforniaOrderUIBuilder();
-      } else if (str.equals(OrderManager.NON_CA_ORDER)) {
-          builder = new NonCaliforniaOrderUIBuilder();
-      } else if (str.equals(OrderManager.OVERSEAS_ORDER)) {
-          builder = new OverseasOrderUIBuilder();
-      }
-      return builder;
-  }
+    public UIBuilder getUIBuilder(String str) {
+        UIBuilder builder = null;
+        if (str.equals(OrderManager.CA_ORDER)) {
+            builder = new CaliforniaOrderUIBuilder();
+        } else if (str.equals(OrderManager.NON_CA_ORDER)) {
+            builder = new NonCaliforniaOrderUIBuilder();
+        } else if (str.equals(OrderManager.OVERSEAS_ORDER)) {
+            builder = new OverseasOrderUIBuilder();
+        } else if (str.equals(OrderManager.CAN_ORDER)) {
+            builder = new CanadianOrderUIBuilder();
+        }
+        return builder;
+    }
 }

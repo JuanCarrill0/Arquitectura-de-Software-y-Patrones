@@ -6,9 +6,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import javax.swing.*;
-import java.awt.*;
-
 class OverseasOrderUIBuilder implements UIBuilder {
     private JPanel panel;
     private JTextField txtOrderAmount, txtAdditionalSH;
