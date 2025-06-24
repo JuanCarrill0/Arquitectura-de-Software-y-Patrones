@@ -10,7 +10,7 @@ public class CanadianOrderUIBuilder implements UIBuilder{
     private JPanel panel;
     private JTextField txtOrderAmount;
 
-    public CanadianOrderUIBuilder() {
+    public  CanadianOrderUIBuilder() {
         panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
     }

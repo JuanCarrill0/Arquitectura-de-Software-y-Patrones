@@ -1,6 +1,9 @@
 package com.example;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -63,31 +66,25 @@ public class OrderManager extends JFrame {
         // Inicializar el director
         director = new UIDirector();
 
-        // Listener para el JComboBox
-        cmbOrderType.addItemListener(e -> {
-            if (e.getStateChange() == ItemEvent.SELECTED) {
-                updateUI();
-            }
-        });
+        ButtonHandler vf = new ButtonHandler(this);
         
-        // Action listeners para los botones
-        exitButton.addActionListener(new ButtonHandler(this));
-        createOrderButton.addActionListener(new ButtonHandler(this));
-        getTotalButton.addActionListener(new ButtonHandler(this));
-        deleteButton.addActionListener(new ButtonHandler(this));
 
+        // Action listeners para los botones
+        exitButton.addActionListener(vf);
+        createOrderButton.addActionListener(vf);
+        getTotalButton.addActionListener(vf);
+        deleteButton.addActionListener(vf);
+        cmbOrderType.addActionListener(vf);
+
+        ListHandler lh = new ListHandler(this);
         // Listener a la lista de órdenes
-        orderList.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                updateOrderTypeComboFromSelection();
-            }
-        });
+        orderList.addListSelectionListener(lh);
 
         // Inicializar la UI con el primer tipo de orden
         updateUI();
     }
 
-    private void updateUI() {
+    public void updateUI() {
         String selected = (String) cmbOrderType.getSelectedItem();
         // Uso de fabrica
         BuilderFactory factory = new BuilderFactory();
@@ -160,6 +157,10 @@ public class OrderManager extends JFrame {
         return txtAdditionalSH != null ? txtAdditionalSH.getText() : "";
     }
 
+    public JComboBox getOrderTypeCtrl() {
+        return cmbOrderType;
+    }
+
     private Component getComponentByName(String name) {
         for (Component comp : dynamicPanel.getComponents()) {
             if (comp instanceof JPanel) {
@@ -181,6 +182,18 @@ public class OrderManager extends JFrame {
     }
 }
 
+class ListHandler implements ListSelectionListener {
+    private OrderManager objOrderManager;
+
+    public ListHandler(OrderManager objOrderManager) {
+        this.objOrderManager = objOrderManager;
+    }
+
+    public void valueChanged(ListSelectionEvent e) {
+      objOrderManager.updateOrderTypeComboFromSelection();
+    }
+
+  }
 class ButtonHandler implements ActionListener {
     private OrderManager objOrderManager;
 
@@ -190,10 +203,11 @@ class ButtonHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String command = e.getActionCommand();
-        if (command.equals(OrderManager.EXIT)) {
+
+        if (e.getActionCommand().equals(OrderManager.EXIT)) {
             System.exit(0);
-        } else if (command.equals(OrderManager.CREATE_ORDER)) {
+        }
+        if (e.getActionCommand().equals(OrderManager.CREATE_ORDER)) {
             String orderType = (String) objOrderManager.cmbOrderType.getSelectedItem();
             String strOrderAmount = objOrderManager.getOrderAmount();
             String strTax = objOrderManager.getTax();
@@ -208,11 +222,13 @@ class ButtonHandler implements ActionListener {
                 order.accept(objOrderManager.objVisitor);
                 objOrderManager.refreshOrderList();
             }
-        } else if (command.equals(OrderManager.GET_TOTAL)) {
+        }
+        if (e.getActionCommand().equals(OrderManager.GET_TOTAL)) {
             OrderIterator iterator = objOrderManager.objVisitor.getIterator();
             double total = getOrderTotal(iterator);
             JOptionPane.showMessageDialog(objOrderManager, "Total: " + total);
-        } else if (command.equals(OrderManager.DELETE)) {
+        }
+        if (e.getActionCommand().equals(OrderManager.DELETE)) {
             int selectedIndex = objOrderManager.orderList.getSelectedIndex();
             if (selectedIndex != -1) {
                 OrderIterator iterator = objOrderManager.objVisitor.getIterator();
@@ -229,6 +245,12 @@ class ButtonHandler implements ActionListener {
 
                 objOrderManager.refreshOrderList();
             }
+        }
+        if(e.getSource() == objOrderManager.cmbOrderType) {
+            objOrderManager.updateUI();
+        }
+        if(e.getSource() == objOrderManager.orderList) {
+            objOrderManager.updateOrderTypeComboFromSelection();
         }
     }
 
