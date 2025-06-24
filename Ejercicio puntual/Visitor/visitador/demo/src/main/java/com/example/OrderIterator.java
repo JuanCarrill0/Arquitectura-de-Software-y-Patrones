@@ -1,41 +1,47 @@
 package com.example;
 
-import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-public class OrderIterator implements Iterator<Order>{
-    
-    private List<Order> orders;
-    private Iterator<Order> it;
-    private Order lastReturned;
+public class OrderIterator implements java.util.Iterator<Order> {
 
+    private final List<Order> orders;
+    private int currentIndex = 0;
+    private int lastReturnedIndex = -1;
 
-    public OrderIterator(List<Order> orders){
+    public OrderIterator(List<Order> orders) {
         this.orders = orders;
-        it = this.orders.iterator();
     }
 
+    @Override
     public boolean hasNext() {
-        return it.hasNext();
+        return currentIndex < orders.size();
     }
 
     @Override
     public Order next() {
-        lastReturned = it.next();
-        return lastReturned;
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        lastReturnedIndex = currentIndex;
+        return orders.get(currentIndex++);
     }
 
     @Override
     public void remove() {
-        if (lastReturned == null) {
+        if (lastReturnedIndex < 0) {
             throw new IllegalStateException("next() must be called before remove()");
         }
-        it.remove();
-        lastReturned = null;
+        orders.remove(lastReturnedIndex);
+        // Ajustamos índice porque eliminamos un elemento anterior
+        if (lastReturnedIndex < currentIndex) {
+            currentIndex--;
+        }
+        lastReturnedIndex = -1;
     }
 
     public void reset() {
-        this.it = orders.iterator();
-        this.lastReturned = null;
+        currentIndex = 0;
+        lastReturnedIndex = -1;
     }
 }

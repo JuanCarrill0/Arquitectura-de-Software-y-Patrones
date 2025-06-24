@@ -17,14 +17,14 @@ public class OrderManager extends JFrame {
     public static final String OVERSEAS_ORDER = "Overseas Order";
     public static final String CAN_ORDER = "Canadian Order";
 
-    public JComboBox<String> cmbOrderType;
+    private JComboBox<String> cmbOrderType;
     private JPanel dynamicPanel;
     private UIDirector director;
-    OrderVisitor objVisitor;
+    private OrderVisitor objVisitor;
 
     // Variables lista de ordenes
     private DefaultListModel<String> orderListModel;
-    public JList<String> orderList;
+    private JList<String> orderList;
 
     public OrderManager() {
         super("Visitor Pattern - Example");
@@ -161,6 +161,14 @@ public class OrderManager extends JFrame {
         return cmbOrderType;
     }
 
+    public JList<String> getOrderList() {
+        return orderList;
+    }
+
+    public OrderVisitor getVisitor() {
+        return objVisitor;
+    }
+
     private Component getComponentByName(String name) {
         for (Component comp : dynamicPanel.getComponents()) {
             if (comp instanceof JPanel) {
@@ -208,7 +216,7 @@ class ButtonHandler implements ActionListener {
             System.exit(0);
         }
         if (e.getActionCommand().equals(OrderManager.CREATE_ORDER)) {
-            String orderType = (String) objOrderManager.cmbOrderType.getSelectedItem();
+            String orderType = (String) objOrderManager.getOrderTypeCtrl().getSelectedItem();
             String strOrderAmount = objOrderManager.getOrderAmount();
             String strTax = objOrderManager.getTax();
             String strSH = objOrderManager.getSH();
@@ -219,19 +227,19 @@ class ButtonHandler implements ActionListener {
 
             Order order = createOrder(orderType, dblOrderAmount, dblTax, dblSH);
             if (order != null) {
-                order.accept(objOrderManager.objVisitor);
+                order.accept(objOrderManager.getVisitor());
                 objOrderManager.refreshOrderList();
             }
         }
         if (e.getActionCommand().equals(OrderManager.GET_TOTAL)) {
-            OrderIterator iterator = objOrderManager.objVisitor.getIterator();
+            OrderIterator iterator = objOrderManager.getVisitor().getIterator();
             double total = getOrderTotal(iterator);
             JOptionPane.showMessageDialog(objOrderManager, "Total: " + total);
         }
         if (e.getActionCommand().equals(OrderManager.DELETE)) {
-            int selectedIndex = objOrderManager.orderList.getSelectedIndex();
+            int selectedIndex = objOrderManager.getOrderList().getSelectedIndex();
             if (selectedIndex != -1) {
-                OrderIterator iterator = objOrderManager.objVisitor.getIterator();
+                OrderIterator iterator = objOrderManager.getVisitor().getIterator();
                 iterator.reset();
                 int currentIndex = 0;
                 while (iterator.hasNext()) {
@@ -246,10 +254,10 @@ class ButtonHandler implements ActionListener {
                 objOrderManager.refreshOrderList();
             }
         }
-        if(e.getSource() == objOrderManager.cmbOrderType) {
+        if(e.getSource() == objOrderManager.getOrderTypeCtrl()) {
             objOrderManager.updateUI();
         }
-        if(e.getSource() == objOrderManager.orderList) {
+        if(e.getSource() == objOrderManager.getOrderList()) {
             objOrderManager.updateOrderTypeComboFromSelection();
         }
     }
