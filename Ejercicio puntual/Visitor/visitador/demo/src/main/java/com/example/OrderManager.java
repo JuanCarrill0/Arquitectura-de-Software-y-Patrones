@@ -76,10 +76,6 @@ public class OrderManager extends JFrame {
         deleteButton.addActionListener(vf);
         cmbOrderType.addActionListener(vf);
 
-        ListHandler lh = new ListHandler(this);
-        // Listener a la lista de órdenes
-        orderList.addListSelectionListener(lh);
-
         // Inicializar la UI con el primer tipo de orden
         updateUI();
     }
@@ -99,35 +95,6 @@ public class OrderManager extends JFrame {
         dynamicPanel.add(director.getPanel());
         dynamicPanel.revalidate();
         dynamicPanel.repaint();
-    }
-
-    // Actualizar el JComboBox según la selección de la lista de órdenes
-    public void updateOrderTypeComboFromSelection() {
-        int selectedIndex = orderList.getSelectedIndex();
-        if (selectedIndex >= 0) {
-
-            OrderIterator iterator = objVisitor.getIterator();
-            int currentIndex = 0;
-            Order selectedOrder = null;
-            iterator.reset();
-            while (iterator.hasNext()) {
-                Order current = iterator.next();
-                if (currentIndex == selectedIndex) {
-                    selectedOrder = current;
-                    break;
-                }
-                currentIndex++;
-            }
-            if (selectedOrder instanceof CaliforniaOrder) {
-                cmbOrderType.setSelectedItem(CA_ORDER);
-            } else if (selectedOrder instanceof NonCaliforniaOrder) {
-                cmbOrderType.setSelectedItem(NON_CA_ORDER);
-            } else if (selectedOrder instanceof OverseasOrder) {
-                cmbOrderType.setSelectedItem(OVERSEAS_ORDER);
-            } else if (selectedOrder instanceof CanadianOrder) {
-                cmbOrderType.setSelectedItem(CAN_ORDER);
-            }
-        }
     }
 
     // Actualizar la lista de órdenes
@@ -190,18 +157,6 @@ public class OrderManager extends JFrame {
     }
 }
 
-class ListHandler implements ListSelectionListener {
-    private OrderManager objOrderManager;
-
-    public ListHandler(OrderManager objOrderManager) {
-        this.objOrderManager = objOrderManager;
-    }
-
-    public void valueChanged(ListSelectionEvent e) {
-      objOrderManager.updateOrderTypeComboFromSelection();
-    }
-
-  }
 class ButtonHandler implements ActionListener {
     private OrderManager objOrderManager;
 
@@ -255,9 +210,6 @@ class ButtonHandler implements ActionListener {
         }
         if(e.getSource() == objOrderManager.getOrderTypeCtrl()) {
             objOrderManager.updateUI();
-        }
-        if(e.getSource() == objOrderManager.getOrderList()) {
-            objOrderManager.updateOrderTypeComboFromSelection();
         }
     }
 
