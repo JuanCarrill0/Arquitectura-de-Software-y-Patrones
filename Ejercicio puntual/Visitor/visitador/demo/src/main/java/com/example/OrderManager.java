@@ -106,7 +106,7 @@ public class OrderManager extends JFrame {
         int selectedIndex = orderList.getSelectedIndex();
         if (selectedIndex >= 0) {
 
-            OrderIterator iterator = objVisitor.getIterator(); // debe ser nuevo o reseteado
+            OrderIterator iterator = objVisitor.getIterator();
             int currentIndex = 0;
             Order selectedOrder = null;
             iterator.reset();
