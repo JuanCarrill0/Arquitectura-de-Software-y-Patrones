@@ -7,10 +7,8 @@ public class DCClient {
     objConverter.setMemento(objMementoHandler.getMemento());
 
     if (!(objConverter.process())) {
-      System.out.println("Description: Invalid data - " +
-                         "Process Stopped");
-      System.out.println("Please correct the Data and " +
-                         "Run the Application Again");
+      System.out.println("Description: Invalid data - " + "Process Stopped");
+      System.out.println("Please correct the Data and " + "Run the Application Again");
       objMementoHandler.setMemento(
         objConverter.createMemento());
     }

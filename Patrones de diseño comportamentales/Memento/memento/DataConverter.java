@@ -42,8 +42,7 @@ public class DataConverter {
 
         if (lastID < currID) {
           Customer c =
-            new Customer(strID, st.nextToken(),
-                         st.nextToken(), st.nextToken());
+            new Customer(strID, st.nextToken(), st.nextToken(), st.nextToken());
 
           if (!(c.isValid())) {
             success = false;
@@ -51,21 +50,18 @@ public class DataConverter {
           }
           ID = new Long(strID).longValue();
           FileUtil util = new FileUtil();
-          util.writeToFile(OUTPUT_FILE, c.getSQL(),
-                           true, true);
+          util.writeToFile(OUTPUT_FILE, c.getSQL(), true, true);
 
         }
       }
       br.close();
     } // Try
     catch (Exception ex) {
-      System.out.println(" An error has occurred " +
-                         ex.getMessage());
+      System.out.println(" An error has occurred " + ex.getMessage());
       System.exit(1);
     }
     if (success == false) {
-      System.out.println("An error has occurred at ID=" +
-                         currID);
+      System.out.println("An error has occurred at ID=" + currID);
       System.out.println("Data Record=" + inputLine);
       return false;
     }
