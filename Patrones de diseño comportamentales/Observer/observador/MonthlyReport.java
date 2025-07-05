@@ -57,15 +57,12 @@ public class MonthlyReport extends JFrame implements Observer {
       //get subject's state
       String department = objReportManager.getDepartment();
 
-      lblTransactions.setText(
-        "Current Month Transactions - " +
-        department);
+      lblTransactions.setText("Current Month Transactions - " + department);
       Vector trnList =
         getCurrentMonthTransactions(department);
       String content = "";
       for (int i = 0; i < trnList.size(); i++) {
-        content = content +
-                  trnList.elementAt(i).toString() + "\n";
+        content = content + trnList.elementAt(i).toString() + "\n";
       }
       taTransactions.setText(content);
     }

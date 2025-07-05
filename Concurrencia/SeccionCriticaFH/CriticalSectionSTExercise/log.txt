@@ -1,41 +1,61 @@
 
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 1 is wrtting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
-Thread 2 is writting
+Thread 4 is writing - mensaje 1
+Thread 3 is writing - mensaje 1
+Thread 1 is writing - mensaje 1
+Thread 2 is writing - mensaje 1
+Thread 1 is writing - mensaje 2
+Thread 3 is writing - mensaje 2
+Thread 4 is writing - mensaje 2
+Thread 3 is writing - mensaje 3
+Thread 1 is writing - mensaje 3
+Thread 1 is writing - mensaje 4
+Thread 2 is writing - mensaje 2
+Thread 1 is writing - mensaje 5
+Thread 1 is writing - mensaje 6
+Thread 3 is writing - mensaje 4
+Thread 4 is writing - mensaje 3
+Thread 4 is writing - mensaje 4
+Thread 4 is writing - mensaje 5
+Thread 3 is writing - mensaje 5
+Thread 1 is writing - mensaje 7
+Thread 2 is writing - mensaje 3
+Thread 2 is writing - mensaje 4
+Thread 1 is writing - mensaje 8
+Thread 1 is writing - mensaje 9
+Thread 1 is writing - mensaje 10
+Thread 1 is writing - mensaje 11
+Thread 1 is writing - mensaje 12
+Thread 3 is writing - mensaje 6
+Thread 4 is writing - mensaje 6
+Thread 3 is writing - mensaje 7
+Thread 1 is writing - mensaje 13
+Thread 2 is writing - mensaje 5
+Thread 1 is writing - mensaje 14
+Thread 3 is writing - mensaje 8
+Thread 4 is writing - mensaje 7
+Thread 3 is writing - mensaje 9
+Thread 1 is writing - mensaje 15
+Thread 2 is writing - mensaje 6
+Thread 3 is writing - mensaje 10
+Thread 3 is writing - mensaje 11
+Thread 4 is writing - mensaje 8
+Thread 3 is writing - mensaje 12
+Thread 2 is writing - mensaje 7
+Thread 3 is writing - mensaje 13
+Thread 4 is writing - mensaje 9
+Thread 3 is writing - mensaje 14
+Thread 2 is writing - mensaje 8
+Thread 3 is writing - mensaje 15
+Thread 4 is writing - mensaje 10
+Thread 2 is writing - mensaje 9
+Thread 4 is writing - mensaje 11
+Thread 2 is writing - mensaje 10
+Thread 4 is writing - mensaje 12
+Thread 2 is writing - mensaje 11
+Thread 4 is writing - mensaje 13
+Thread 2 is writing - mensaje 12
+Thread 4 is writing - mensaje 14
+Thread 2 is writing - mensaje 13
+Thread 4 is writing - mensaje 15
+Thread 2 is writing - mensaje 14
+Thread 2 is writing - mensaje 15
