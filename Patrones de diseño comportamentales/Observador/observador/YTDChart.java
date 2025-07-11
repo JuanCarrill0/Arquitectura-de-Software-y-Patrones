@@ -106,7 +106,7 @@ public class YTDChart extends JFrame implements Observer {
   }
   private int getMonthlyTotal(int month, String department) {
     FileUtil futil = new FileUtil();
-    Vector allRows = futil.fileToVector("C:\\Users\\juanc\\OneDrive\\Escritorio\\Universidad\\Arquitectura-de-Software-y-Patrones\\Patrones de diseño comportamentales\\Observador\\observador\\Transactions.dat");
+    Vector allRows = futil.fileToVector("/Transactions.dat");
     int total = 0;
 
     String searchStr = department + "," + month + ",";
